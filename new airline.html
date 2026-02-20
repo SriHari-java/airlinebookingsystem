@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Airline Booking System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to right, #3498db, #2c3e50);
-      padding: 20px;
       margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,38 +18,33 @@
     }
 
     .container {
-      max-width: 600px;
-      width: 100%;
       background: white;
+      width: 500px;
       padding: 30px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       border-radius: 10px;
-      text-align: center;
-      animation: fadeIn 1s ease-out;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     h2 {
+      text-align: center;
+      margin-bottom: 25px;
       color: #2c3e50;
-      font-size: 2rem;
-      margin-bottom: 20px;
     }
 
     label {
       display: block;
       margin-top: 15px;
-      color: #34495e;
-      font-size: 1rem;
       font-weight: bold;
+      color: #34495e;
     }
 
-    select, input[type="date"], input[type="number"] {
+    select, input {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-      box-sizing: border-box;
+      font-size: 14px;
     }
 
     .buttons {
@@ -58,150 +54,91 @@
     }
 
     button {
-      padding: 12px 20px;
+      width: 48%;
+      padding: 10px;
       border: none;
-      color: white;
-      background: #3498db;
       border-radius: 5px;
+      font-size: 15px;
       cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
+      color: white;
+      background-color: #3498db;
     }
 
     button.reset {
-      background: #e74c3c;
+      background-color: #e74c3c;
     }
 
     button:hover {
-      background-color: #2980b9;
-    }
-
-    .price-container {
-      margin-top: 20px;
-      padding: 15px;
-      background: #f4f7fa;
-      border-radius: 5px;
-      display: none;
-      text-align: center;
-      font-size: 1.2rem;
-      color: #34495e;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      opacity: 0.9;
     }
 
     .footer {
       text-align: center;
       margin-top: 20px;
-      font-size: 0.85rem;
-      color: #666;
+      font-size: 12px;
+      color: gray;
     }
 
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       .container {
         width: 90%;
-        padding: 20px;
       }
     }
   </style>
 </head>
+
 <body>
+
   <div class="container">
     <h2>Flight Booking</h2>
-    <form id="bookingForm">
-      <label for="from">From:</label>
-      <select id="from" required>
+
+    <!-- Later we will connect this form to Spring Boot -->
+    <form action="#" method="post">
+
+      <label>From:</label>
+      <select name="from" required>
         <option value="">Select Departure</option>
-        <option value="JFK">New York (JFK)</option>
-        <option value="LAX">Los Angeles (LAX)</option>
-        <option value="ORD">Chicago (ORD)</option>
-        <option value="DEL">Delhi (DEL), India</option>
-        <option value="BOM">Mumbai (BOM), India</option>
-        <option value="BLR">Bangalore (BLR), India</option>
+        <option>Delhi (DEL)</option>
+        <option>Mumbai (BOM)</option>
+        <option>Bangalore (BLR)</option>
       </select>
 
-      <label for="to">To:</label>
-      <select id="to" required>
+      <label>To:</label>
+      <select name="to" required>
         <option value="">Select Destination</option>
-        <option value="LHR">London (LHR)</option>
-        <option value="DXB">Dubai (DXB)</option>
-        <option value="HND">Tokyo (HND)</option>
-        <option value="DEL">Delhi (DEL), India</option>
-        <option value="BOM">Mumbai (BOM), India</option>
-        <option value="BLR">Bangalore (BLR), India</option>
+        <option>Dubai (DXB)</option>
+        <option>London (LHR)</option>
+        <option>Tokyo (HND)</option>
       </select>
 
-      <label for="departDate">Departure Date:</label>
-      <input type="date" id="departDate" required>
+      <label>Departure Date:</label>
+      <input type="date" name="departureDate" required>
 
-      <label for="returnDate">Return Date:</label>
-      <input type="date" id="returnDate">
+      <label>Return Date:</label>
+      <input type="date" name="returnDate">
 
-      <label for="passengers">Passengers:</label>
-      <input type="number" id="passengers" min="1" max="10" value="1" required>
+      <label>Passengers:</label>
+      <input type="number" name="passengers" min="1" max="10" required>
 
-      <label for="class">Class:</label>
-      <select id="class" required>
-        <option value="Economy">Economy</option>
-        <option value="Business">Business</option>
-        <option value="First">First</option>
+      <label>Class:</label>
+      <select name="travelClass">
+        <option>Economy</option>
+        <option>Business</option>
+        <option>First</option>
       </select>
 
       <div class="buttons">
-        <button type="submit">Search Flights</button>
-        <button type="button" class="reset" onclick="document.getElementById('bookingForm').reset();">Reset</button>
+        <button type="submit">Search</button>
+        <button type="reset" class="reset">Reset</button>
       </div>
+
     </form>
-    <div class="price-container" id="priceContainer">
-      <h3>Estimated Price</h3>
-      <p id="price"></p>
+
+    <div class="footer">
+      © 2026 Airline Booking System
     </div>
 
-    <div class="footer">© 2025 Airline Booking System</div>
   </div>
 
-  <script>
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const from = document.getElementById('from').value;
-      const to = document.getElementById('to').value;
-      const depart = document.getElementById('departDate').value;
-      const ret = document.getElementById('returnDate').value;
-      const pax = document.getElementById('passengers').value;
-      const travelClass = document.getElementById('class').value;
-      
-      // Base price in USD
-      let basePrice = 200;
-      if (travelClass === "Business") basePrice = 400;
-      if (travelClass === "First") basePrice = 600;
-
-      // Total price in USD
-      let totalPrice = basePrice * pax;
-
-      // Convert price to INR (1 USD = 80 INR)
-      let exchangeRate = 80;
-      let totalPriceINR = totalPrice * exchangeRate;
-
-      // Displaying the price in INR format
-      document.getElementById('priceContainer').style.display = 'block';
-      document.getElementById('price').textContent = `
-        From: ${from} to ${to}
-        Depart: ${depart}
-        Return: ${ret || 'N/A'}
-        Passengers: ${pax}
-        Class: ${travelClass}
-        Estimated Price: ₹${totalPriceINR.toLocaleString()}`;
-    });
-  </script>
 </body>
 </html>
